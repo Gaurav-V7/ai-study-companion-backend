@@ -1,11 +1,10 @@
 import { processImage } from "../services/main.services.js";
 import { errorResponse, messageResponse } from "../utils/common.js";
-import { getCached, saveCache } from "../utils/db.js";
+import { getCached, saveCache } from "../utils/cache.js";
 
 export class MainController {
   static async upload(req, res) {
     try {
-      console.log("request", req);
       const file = req.file;
 
       if (!file) {
@@ -15,15 +14,16 @@ export class MainController {
         });
       }
 
-      const filePath = file.path;
       const mimeType = file.mimetype;
+
+      const base64 = file.buffer.toString("base64");
 
       const cached = getCached(file.originalname);
       if (cached) {
-        return messageResponse(res, "Cached response", 200, cached.response);
+        return messageResponse(res, "Cached response", 200, cached);
       }
 
-      const result = await processImage(filePath, mimeType);
+      const result = await processImage(base64, mimeType);
 
       saveCache(file.originalname, result);
 

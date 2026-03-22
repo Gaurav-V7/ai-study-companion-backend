@@ -1,0 +1,9 @@
+const cache = new Map();
+
+export function getCached(key) {
+  return cache.get(key);
+}
+
+export function saveCache(key, value) {
+  cache.set(key, value);
+}

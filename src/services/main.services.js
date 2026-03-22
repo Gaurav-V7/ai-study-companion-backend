@@ -8,9 +8,7 @@ function getAI() {
 }
 
 // Image + AI
-export async function processImage(filePath, mimeType) {
-  const fileData = fs.readFileSync(filePath).toString("base64");
-
+export async function processImage(base64, mimeType) {
   const result = await getAI().model.generateContent([
     `
 Extract content from this file and:
@@ -20,7 +18,7 @@ Extract content from this file and:
 `,
     {
       inlineData: {
-        data: fileData,
+        data: base64,
         mimeType,
       },
     },
