@@ -4,12 +4,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { mainRoutes } from "./routes/index.js";
+import { parseEnvList } from "./utils/common.js";
 
 const app = express();
 
 const PORT = 3000;
 const CORS_OPTIONS = {
-  origin: "http://localhost:3001",
+  origin: parseEnvList(process.env.CORS_ORIGINS),
 };
 
 app.use(express.json());

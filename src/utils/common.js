@@ -1,3 +1,7 @@
+export function parseEnvList(envValue) {
+  return envValue?.split(",").map((origin) => origin.trim()) || [];
+}
+
 export function messageResponse(res, message, statusCode, data) {
   const response = { message };
 
