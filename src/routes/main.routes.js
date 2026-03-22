@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.post("/upload", upload.single("file"), MainController.upload);
 
+router.post("/ask", MainController.ask);
+
 export default router;
